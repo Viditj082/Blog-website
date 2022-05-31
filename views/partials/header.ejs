@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+ *{
+     margin: 0;padding: 0;box-sizing: border-box;
+ }
+
+ html{
+     scroll-behavior: smooth;
+ }
+
+ body{
+     color:#00000090;
+     font-family: sans-serif;
+     position: relative;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items:center;
+     overflow-y: scroll;
+     
+   
+ }
+
+ .navbar{
+    position: fixed;
+     top:0;
+     left:0;
+     width:100%;
+     min-height: 100px;
+     display:grid;
+     grid-template-columns: 5fr 3fr;
+     padding:1.8rem;
+     background-color: #fffbfb;
+     transition: 0.2s;
+ }
+
+ @media(max-width:1100px)
+ {
+     .navbar{
+         grid-template-columns:5fr 5fr ;
+     }
+ }
+
+ @media(max-width:720px)
+ {
+     .navbar-brand,.navbar-list{
+         grid-column: 1/-1;
+     }
+     .navbar-list{
+         margin-top: 30px;
+         justify-content: flex-start;
+     }
+     .content>h1{
+         font-size: 1rem;
+     }
+ }
+ 
+ 
+ .navbar-list{
+   
+     list-style: none;
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+ }
+
+ .content{
+     margin-top: 150px;
+     width:100%;
+     padding:0.2rem 1.8rem 0.2rem 1.8rem;
+     
+    
+   
+ }
+ 
+ .footer{
+     position:fixed;
+     bottom:0;
+     left:0;
+     width:100%;
+     height:60px;
+     background:#a5ffde;
+     color:#17171770;
+     display: flex;
+     justify-content: center;
+     align-items: center;
+ }
+
+ ul{
+     list-style:none;
+
+ }
+
+ul>li>a{
+    text-decoration: none;
+    color:#17171770;
+}
+ ul>li>a{
+     position: relative;
+     
+ }
+
+ ul>li>a::after{
+     content:'';
+   position: absolute;
+   bottom:-10px;
+   left:0;
+   right:100%;
+   height:2px;
+   background-color: #17171770;
+  transition: 0.2s;
+ }
+
+ ul>li>a:hover>a{
+     color:#17171790
+ }
+
+ ul>li>a:hover::after{
+     left:0;
+     right: 0;
+ }
+
+ input{
+     padding: 0.5em;border-radius:0.3rem;
+ }
+
+ textarea{
+    padding: 0.5em;border-radius:0.3rem;
+    min-height: 150px;
+    width:100%
+ }
+
+
+ 
+ .compose{
+    width:100%;
+    min-height:100vh;
+    color:#0b0b0b;
+
+ }
+
+ .grid-title{
+   
+   height:50px;
+   margin:20px 0 0 0;
+
+ }
+
+ .grid-item{
+     width:100%;
+     min-height: 50px;
+ }
+
+ 
+ form>.compose>button{
+     
+    margin:40px 0 0 0;
+    background:rgb(64, 166, 245);
+    padding:0.5rem;
+    border-radius:0.3rem;
+    color:#000000;
+    transition:0.2s;
+    border:1px solid #0b0b0b
+
+ }
+  form>.compose>button:hover{
+     
+    background:rgba(98, 181, 244, 0.9);
+    color:aliceblue
+ }
+
+ .posts{
+     margin:20px 0 20px 0 ;
+     
+    
+ }
+
+ .posts>li{
+     position: relative;
+     margin: 20px 0;
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: flex-start;
+     padding:1rem;
+     min-height:100px;
+     background:linear-gradient(45deg,#00000020,#ffffff50);
+     border:1px solid #17171770;
+     border-radius: 0.5rem;
+ }
+
+ .by{
+     font-weight:bold;
+    position: absolute;
+    right: 10px;
+    bottom:10px;
+    min-width: 50px;
+    color:#11bc7d90
+
+ }
+
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="navbar">
+    <div class="navbar-brand">
+     
+       <h1> Daily Journal </h1>
+    </div>
+
+
+  
+<ul class="navbar-list">
+    <li>
+        <a href="/home">Home</a>
+    </li>
+    <li>
+        <a href="/about">About Us</a>
+    </li>
+    <li>
+        <a href="/contact">Contact Us</a>
+    </li>
+
+    <li>
+        <a href="/compose">Compose</a>
+    </li>
+    
+</ul>
+
+
+</div>

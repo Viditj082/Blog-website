@@ -1,0 +1,32 @@
+
+
+  <!-- // include header.ejs -->
+
+<%- include('partials/header') -%>
+  
+
+    <div class="content">
+    <h1><%=Home %></h1>
+    <!-- <p><%=content %></p> -->
+
+
+<ul class="posts">
+
+   <!-- <% for (let i =0; i <content.length;  i++ ) { %>
+  <li ><%= content[i].posttitle%> </li> 
+<% } %> -->
+
+<% content.forEach((element)=>{  %>
+    <li ><h2 ><%= element.posttitle%> </h2> <p style="margin:20px 0 0 0 "><%= element. postbody%></p>  <p class="by">- <%=element.postby %></p></li> 
+  <% }) %>
+
+</ul>
+<p><%= text %></p>
+
+    </div>
+
+     <!-- include footer.ejs -->
+
+    <%- include('partials/footer'); -%>
+
+    

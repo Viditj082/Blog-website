@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+
+*{
+    margin: 0;padding: 0;box-sizing: border-box;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(45deg,#74ebd5,#ACB6E5,#8793c6,#65e7ac);
+    background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+
+}
+
+.card{
+    border-radius: 0.7rem;
+    padding: 1.2rem;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100px;
+    background-color: #00000020;
+    backdrop-filter: blur(10px);
+}
+
+.card>form{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+input{
+    padding:0.5rem;
+    margin:30px 0 ;
+
+}
+
+button{
+    padding:0.4rem;
+    background: transparent;
+    transition: 0.2s;
+}
+
+button:hover{
+    background-color: #11bc7d50;
+    color:white
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+
+</style>
+
+<body>
+
+    
+<div class="card">
+
+    <form action="/" method="post">
+
+    <input type="text" placeholder="Enter your name.." name="name" autocomplete="off">
+
+    <button type="submit">Submit</button>
+
+    </form>
+
+</div>
+
+</body>
+
+</html>

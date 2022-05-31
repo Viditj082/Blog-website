@@ -1,0 +1,33 @@
+    
+
+
+
+
+<script>
+
+    const navbar=document.querySelector('.navbar')
+    
+    const navitems=document.querySelectorAll('.navbar-list>li>a')
+
+    window.addEventListener('scroll',()=>{
+        if(pageYOffset>0)
+        {
+            navbar.style.background='#171717'
+            navbar.style.color='white'
+
+            for(let i=0;i<navitems.length;i++)
+            navitems[i].style.color='white'
+        }
+        else
+        {
+            navbar.style.background='#fffbfb'
+            navbar.style.color='#171717'
+            for(let i=0;i<navitems.length;i++)
+            navitems[i].style.color='#171717'
+        }
+        
+    })
+</script>
+
+</body>
+</html>
