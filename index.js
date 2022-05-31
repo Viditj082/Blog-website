@@ -5,90 +5,220 @@ const bodyparser=require('body-parser')
 
 const ejs=require('ejs')
 
+const mysql=require('mysql2')
+
 const app=express()
 
 app.set('view engine','ejs')
 
 app.use(express.static('public'))
 
+const { get } = require('express/lib/response')
 
 app.use(bodyparser.urlencoded({extended:true}))
 
 
+
+
 let posts=[]
 
-let username=''
+let name=''
 
 let ifrooted=false
 
-app.get('/clear',(req,res)=>{
+let warning=''
 
-    posts=[]
-    res.redirect('/home')
+let login_warning=''
+
+const db=mysql.createConnection({
+
+    host:'localhost',
+    user:'root',
+    password:'vidit',
+    database:'authentication'
 })
 
-app.get('/fill',(req,res)=>{
 
-    posts=[
-        {
-            posttitle:'a',
-            postbody:'a',
-            postby:'-'
-        },
-        {
-            posttitle:'b',
-            postbody:'b',
-            postby:'-'
-        },
-        {
-            posttitle:'c',
-            postbody:'c',
-            postby:'-'
-        },
-        {
-            posttitle:'d',
-            postbody:'d',
-            postby:'-'
-        },
-        {
-            posttitle:'e',
-            postbody:'e',
-            postby:'-'
-        }
-    ]
-
-    res.redirect('/home')
+// Connect
+db.connect((err)=>{
+    if(err)
+    console.log(err)
+    else
+    console.log('Mysql connected..')
 })
+
 
 
 app.get('/',(req,res)=>{
 
-    res.sendFile(__dirname+'/public/initial.html')
-
+    res.render('login',{login_warning:login_warning})
+    warning=''
+    login_warning=''
 })
+
+app.get('/signup',(req,res)=>{
+    res.render('signup',{warning:warning})
+})
+
+// Login process
 
 app.post('/',(req,res)=>{
-    let name=req.body.name
-    if(name!='')
-   {
-        username=name
-        ifrooted=true
-        res.redirect('/home')
-   }
+ 
+    let emails=req.body.email
+
+    let passwords=req.body.password
+
+    let sql='SELECT * FROM  users WHERE email=? AND  password=? ;'
+
+  
+
+    db.query(sql,[emails,passwords],(err,rows)=>{
+        if(err)
+        console.log(err)
+        else 
+        {
+            if(rows.length==0)
+         {
+            login_warning='Credentials dont match any account, Try again'
+            res.redirect('/')
+         }
+         else {
+             if(rows[0].email===emails && rows[0].password===passwords)
+             {
+             
+            name=rows[0].username;
+            ifrooted=true
+             wait(res)
+             
+             }
+             else 
+             {
+                 login_warning='Credentials dont match any account, Try again'
+                 res.redirect('/')
+             }
+         }
+        }
+    })
+
+   
+
 })
+
+//Signup process 
+
+app.post('/signup',(req,res)=>{
+
+   
+    
+    let username=req.body.username
+    
+    let emails=req.body.email
+
+    let passwords=req.body.password
+
+    // searching if an account with this email already exists
+
+    let sql='SELECT * FROM users where email=?'
+    
+
+    db.query(sql,[emails],(err,rows)=>{
+        if(rows.length!=0)
+        {   
+            let exists=false;
+
+            for(let i=0;i<rows.length;i++)
+            {
+                let row=rows[i]
+
+                if(row.email===emails)
+                {
+                     warning='An account with this email already exists !!'
+                 res.redirect('/signup')
+                 exists=true
+                 break
+             }
+             
+            }
+
+
+ // create new account
+
+            if(!exists)
+            {
+                
+            sql='INSERT INTO users  (username,email,password) VALUES (?,?,?);'
+
+            db.query(sql,[username,emails,passwords],(err)=>{
+                if(err)
+                console.log(err)
+                else
+                {
+                    ifrooted=true
+                name=username
+               wait(res)
+
+                }
+            })
+            }
+           
+
+        }
+        
+        else{
+             
+            // Register new user
+
+            sql='INSERT INTO users  (username,email,password) VALUES (?,?,?);'
+
+            db.query(sql,[username,emails,passwords],(err)=>{
+                if(err)
+                console.log(err)
+                else
+               setTimeout (wait(res),500)
+            })
+           
+
+        }
+        
+    })
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// v1 code (get and post requests)
+
+
+
+
+
+
+
+
+
+
+app.get('/clear',(req,res)=>{
+    res.redirect('/home')
+})
+
 
 app.get('/home',(req,res)=>{
     
-    let text=''
-    let heading='Recent activity'
-    if(posts.length==0)
-    { text='This is the home page'
-    heading='Home'}
-
-    if(ifrooted)
-    res.render('home',{Home:heading,content:posts,text:text})
-    else
-    res.send('<h2>Enter your name first !!</h2>')
+  getallposts(req,res)
+  
+   
 })
 
 app.get('/contact',(req,res)=>{
@@ -106,12 +236,12 @@ app.get('/about',(req,res)=>{
     res.send('<h2>Enter your name first !!</h2>')
 })
 
-app.get('/compose',(req,res)=>{
+ app.get('/compose',(req,res)=>{
 
     if(ifrooted)
     res.render('compose')
     else
-    res.send('<h2>Enter your name first !!</h2>')
+    res.send('<h2>Login first !!</h2>')
 })
 
 
@@ -120,19 +250,21 @@ app.post('/compose',(req,res)=>{
     const title=req.body.title 
 
     const post=req.body.post
+    
+    const by=name
+   
 
-    const by=username
-
-    const postobj={
-        posttitle:title,
-        postbody:post,
-        postby:by
-    }
     if(title!=''&&post!='')
 {
-    posts.push(postobj)
-    console.log(posts)
-    res.redirect('/home')
+    
+    let sql='INSERT INTO posts(posttitle,postbody,postauthor) VALUES (?,?,?)'
+
+    db.query(sql,[title,post,by],(err)=>{
+        if(err)
+        console.log(err)
+    })
+
+    setTimeout(wait(res),300)
 }
 
 
@@ -142,3 +274,29 @@ app.listen(process.env.PORT||9000,()=>{
 
     console.log('Server started!!')
 })
+
+async function getallposts(req,res)
+{
+    text='This is the home page'
+
+    heading='Home'
+    
+    let sql="SELECT * FROM POSTS"
+
+  db.query(sql,(err,rows)=>{
+
+        posts=rows
+    })
+    
+    if(posts.length==0)
+    res.render('home',{Home:heading,content:posts,text:'This is the home page'})
+    else
+    res.render('home',{Home:'Recent',content:posts,text:''})
+}
+
+
+function wait(res)
+{
+    res.redirect('/home')
+  
+}
