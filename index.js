@@ -204,21 +204,13 @@ app.post('/signup',(req,res)=>{
 
 
 
-
-
-
-
-
-app.get('/clear',(req,res)=>{
-    res.redirect('/home')
-})
-
-
 app.get('/home',(req,res)=>{
     
+    if(ifrooted)
   getallposts(req,res)
+  else
+  res.send('Login First !!')
   
-   
 })
 
 app.get('/contact',(req,res)=>{
@@ -235,6 +227,7 @@ app.get('/about',(req,res)=>{
     else
     res.send('<h2>Enter your name first !!</h2>')
 })
+
 
  app.get('/compose',(req,res)=>{
 
@@ -287,6 +280,8 @@ async function getallposts(req,res)
 
         posts=rows
     })
+
+    formatArray()
     
     if(posts.length==0)
     res.render('home',{Home:heading,content:posts,text:'This is the home page'})
@@ -298,5 +293,109 @@ async function getallposts(req,res)
 function wait(res)
 {
     res.redirect('/home')
-  
+
+}
+
+
+// code for comments
+
+ let posttitle=''
+ let postexits=false
+
+app.get('/:title/comment',(req,res)=>{
+     
+    if(name=='')
+    res.send('Login first !!')
+    else
+    {
+     posttitle=req.params.title
+
+    let sql='SELECT * FROM posts where posttitle=?'
+
+    db.query(sql, [posttitle],(err,rows)=>{
+
+         if(rows.length==0)
+          res.send('No such post exists!!')
+          else{
+
+          let post=rows[0]
+          
+          // post with same title found  
+
+          if(post.posttitle==posttitle)
+          {
+              postexits=true
+
+              res.render('comment')
+           
+          }
+          else{
+              console.log('No such post found!!')
+          }
+
+          }
+
+    })    
+
+}
+
+})
+
+
+app.post('/postcomment',(req,res)=>{
+
+let commentbody=req.body.commentbody
+
+let sql='INSERT INTO comments (posttitle,commentbody,commentauthor) VALUES (?,?,?)'
+
+db.query(sql,[posttitle,commentbody,name],(err,rows)=>{
+    if(err)
+     console.log(err)
+     else
+     res.send('Added comment successfully ..')
+})
+
+})
+
+
+// show comments for a post
+
+app.get('/:title/showcomments',(req,res)=>{
+     
+    if(name=='')
+    res.send('Login first !!')
+    else
+    {
+     posttitle=req.params.title
+
+    let sql='SELECT * FROM comments where posttitle=?'
+
+    db.query(sql, [posttitle],(err,rows)=>{
+
+         if(rows.length==0)
+          res.send('No comments exist for this post!!')
+          else{
+
+          
+res.send(rows)
+    
+        }
+        
+    })    
+
+}
+
+})
+
+
+// function to format posts array 
+
+function formatArray()
+{
+
+    for(let i=0;i<posts.length;i++)
+    {
+        if(posts[i].postauthor==name)
+        posts[i].postauthor='YOU'
+    }
 }

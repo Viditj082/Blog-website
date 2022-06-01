@@ -10,6 +10,7 @@
     <!-- <p><%=content %></p> -->
 
     <p><%= text %></p>
+
 <ul class="posts">
 
    <!-- <% for (let i =0; i <content.length;  i++ ) { %>
@@ -17,7 +18,7 @@
 <% } %> -->
 
 <% content.forEach((element)=>{  %>
-    <li ><h2 ><%= element.posttitle%> </h2> <p style="margin:20px 0 0 0 "><%= element. postbody%></p>  <p class="by">- <%=element.postauthor %></p></li> 
+    <li> <h2 style="color:black"><%= element.posttitle%> </h2> <p style="margin:20px 0 0 0 ;color:#00000090"><%= element. postbody%></p>  <p class="by">- <%=element.postauthor %></p></li> 
   <% }) %>
 
 </ul>
