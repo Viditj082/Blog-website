@@ -18,9 +18,9 @@ const { get } = require('express/lib/response')
 app.use(bodyparser.urlencoded({extended:true}))
 
 
-
-
 let posts=[]
+
+let loggedin=[]
 
 let name=''
 
@@ -89,7 +89,12 @@ app.post('/',(req,res)=>{
             name=rows[0].username;
             ifrooted=true
              wait(res)
-             
+             loggedin.push({
+                 username:name,
+                 email:emails,
+                 password:passwords
+             })
+            
              }
              else 
              {
@@ -205,7 +210,7 @@ app.post('/signup',(req,res)=>{
 
 
 app.get('/home',(req,res)=>{
-    
+
     if(ifrooted)
   getallposts(req,res)
   else
@@ -342,6 +347,7 @@ app.get('/:title/comment',(req,res)=>{
 })
 
 
+
 app.post('/postcomment',(req,res)=>{
 
 let commentbody=req.body.commentbody
@@ -399,3 +405,4 @@ function formatArray()
         posts[i].postauthor='YOU'
     }
 }
+
