@@ -25,16 +25,15 @@
      justify-content: center;
      align-items:center;
      overflow-y: scroll;
-     
-   
  }
 
  .navbar{
-    position: fixed;
+    position:fixed;
+    z-index: 1;
      top:0;
      left:0;
      width:100%;
-     min-height: 100px;
+     min-height: 60px;
      display:grid;
      grid-template-columns: 5fr 3fr;
      padding:1.8rem;
@@ -97,7 +96,6 @@
 
  ul{
      list-style:none;
-
  }
 
 ul>li>a{
@@ -180,8 +178,7 @@ ul>li>a{
 
  .posts{
      margin:20px 0 20px 0 ;
-     
-    
+
  }
 
  .posts>li{
@@ -193,9 +190,14 @@ ul>li>a{
      align-items: flex-start;
      padding:1rem;
      min-height:100px;
-     background:linear-gradient(45deg,#00000020,#11bc7d90);
+     background:linear-gradient(45deg,#00000020,#11bc7d90,#11bc7d);
      border:1px solid #17171770;
      border-radius: 0.5rem;
+     transition: 0.2s;
+ }
+
+ .posts>li:hover{
+  transform: scale(1.02);
  }
 
  .by{
@@ -248,7 +250,7 @@ ul>li>a{
     width:50px;
     height:50px;
     border-radius: 50%;
-    background-color: #ff000050;
+    background-color: #ff0000;
     color:white;
     text-align: center;
     display: flex;
