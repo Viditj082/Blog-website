@@ -50,7 +50,7 @@ db.connect((err)=>{
 
 
 app.get('/',(req,res)=>{
-
+    name=''
     res.render('login',{login_warning:login_warning})
     warning=''
     login_warning=''
@@ -220,7 +220,7 @@ app.get('/home',(req,res)=>{
 
 app.get('/contact',(req,res)=>{
     if(ifrooted)
-    res.render('home',{Home:'Contact',content:[],text:'This is the contact page'})
+    res.render('home',{Home:'Contact',content:[],text:'This is the contact page',username:name.charAt(0)})
     else
     res.send('<h2>Enter your name first !!</h2>')
 })
@@ -228,7 +228,7 @@ app.get('/contact',(req,res)=>{
 app.get('/about',(req,res)=>{
     
     if(ifrooted)
-    res.render('home',{Home:'About Us',content:[],text:'This is the about us page'})
+    res.render('home',{Home:'About Us',content:[],text:'This is the about us page',username:name.charAt(0)})
     else
     res.send('<h2>Enter your name first !!</h2>')
 })
@@ -237,7 +237,7 @@ app.get('/about',(req,res)=>{
  app.get('/compose',(req,res)=>{
 
     if(ifrooted)
-    res.render('compose')
+    res.render('compose',{username:name.charAt(0)})
     else
     res.send('<h2>Login first !!</h2>')
 })
@@ -286,12 +286,14 @@ async function getallposts(req,res)
         posts=rows
     })
 
-    formatArray()
+    formatArray()  
+
+    posts.reverse()  //reverses the posts array
     
     if(posts.length==0)
-    res.render('home',{Home:heading,content:posts,text:'This is the home page'})
+    res.render('home',{Home:heading,content:posts,text:'This is the home page',username:name.charAt(0)})
     else
-    res.render('home',{Home:'Recent',content:posts,text:''})
+    res.render('home',{Home:'Recent',content:posts,text:'',username:name.charAt(0)})
 }
 
 
