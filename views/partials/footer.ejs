@@ -1,4 +1,9 @@
     
+    <div class="movetotop">
+
+        <a href="#" style="text-decoration: none; color:white">TOP</a>
+  
+      </div>
 
 
 
@@ -13,6 +18,8 @@
 
     const topbtn=document.querySelector('.movetotop')
 
+    const body=document.querySelector('body')
+
     window.addEventListener('scroll',()=>{
         if(pageYOffset>0)
         {
@@ -21,6 +28,8 @@
             username_div.style.color='#566BBB'
             username_div.style.textShadow='1px 1px 3px #566BBB'
             topbtn.style.opacity='1'
+
+            body.style.background="#171717"
 
             for(let i=0;i<navitems.length;i++)
             navitems[i].style.color='white'
@@ -32,6 +41,7 @@
             for(let i=0;i<navitems.length;i++)
             navitems[i].style.color='#171717'
             username_div.style.color='#ffffff'
+            body.style.background="#ffffff"
             topbtn.style.opacity='0'
         }
         

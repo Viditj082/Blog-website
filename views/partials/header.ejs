@@ -25,6 +25,7 @@
      justify-content: center;
      align-items:center;
      overflow-y: scroll;
+     transition: 0.2s;
  }
 
  .navbar{
@@ -40,6 +41,7 @@
      background-color: #fffbfb;
      transition: 0.2s ease-out;
      border-bottom: 1px solid black;
+     backdrop-filter: blur(10px);
  }
 
  @media(max-width:1100px)
@@ -190,7 +192,7 @@ ul>li>a{
      align-items: flex-start;
      padding:1rem;
      min-height:100px;
-     background:linear-gradient(45deg,#00000020,#11bc7d90,#11bc7d);
+     background:linear-gradient(#11bc7d90,#11bc7d);
      border:1px solid #17171770;
      border-radius: 0.5rem;
      transition: 0.2s;
