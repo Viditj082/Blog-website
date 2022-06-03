@@ -17,6 +17,7 @@
  }
 
  body{
+     transition: 0.2s;
      color:#00000090;
      font-family: sans-serif;
      position: relative;
@@ -40,6 +41,7 @@
      background-color: #fffbfb;
      transition: 0.2s ease-out;
      border-bottom: 1px solid black;
+     backdrop-filter: blur(10px);
  }
 
  @media(max-width:1100px)
@@ -100,12 +102,13 @@
 
 ul>li>a{
     text-decoration: none;
-    color:#17171770;
+    color:black
 }
  ul>li>a{
      position: relative;
      
  }
+ 
 
  ul>li>a::after{
      content:'';
@@ -114,7 +117,7 @@ ul>li>a{
    left:50%;
    right:50%;
    height:2px;
-   background-color: #17171770;
+   background-color: black;
   transition: 0.2s;
  }
 
@@ -162,7 +165,7 @@ ul>li>a{
  form>.compose>button{
      
     margin:40px 0 0 0;
-    background:rgb(64, 166, 245);
+    background:#59ff9b;
     padding:0.5rem;
     border-radius:0.3rem;
     color:#000000;
@@ -172,7 +175,7 @@ ul>li>a{
  }
   form>.compose>button:hover{
      
-    background:rgba(98, 181, 244, 0.9);
+    background:#42b088;
     color:aliceblue
  }
 
@@ -190,10 +193,12 @@ ul>li>a{
      align-items: flex-start;
      padding:1rem;
      min-height:100px;
-     background:linear-gradient(45deg,#00000020,#11bc7d90,#11bc7d);
+     background:linear-gradient(#11bc7d,#42b088);
      border:1px solid #17171770;
      border-radius: 0.5rem;
      transition: 0.2s;
+     border-left:4px solid #59ff9b;
+     
  }
 
  .posts>li:hover{
