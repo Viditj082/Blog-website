@@ -1,17 +1,9 @@
     
 
 
-    <div class="movetotop">
-
-        <a href="#" style="text-decoration: none; color:white">TOP</a>
-  
-      </div>
-  
 
 
 <script>
-    
-    const body=document.querySelector('body')
 
     const navbar=document.querySelector('.navbar')
     
@@ -21,9 +13,6 @@
 
     const topbtn=document.querySelector('.movetotop')
 
-
-
-
     window.addEventListener('scroll',()=>{
         if(pageYOffset>0)
         {
@@ -31,11 +20,7 @@
             navbar.style.color='white'
             username_div.style.color='#566BBB'
             username_div.style.textShadow='1px 1px 3px #566BBB'
-
             topbtn.style.opacity='1'
-            
-            body.style.background='#171717'
-
 
             for(let i=0;i<navitems.length;i++)
             navitems[i].style.color='white'
@@ -47,25 +32,16 @@
             for(let i=0;i<navitems.length;i++)
             navitems[i].style.color='#171717'
             username_div.style.color='#ffffff'
-
             topbtn.style.opacity='0'
-
-            body.style.background='#ffffff'
-         
         }
         
     })
 
-    
-topbtn.addEventListener('click',()=>{
+    topbtn.addEventListener('click',()=>{
 
-window.scrollTo({top:0})
-
-})
+        window.scrollTo({top:0})
         
-
-   
-    
+    })
 </script>
 
 </body>
